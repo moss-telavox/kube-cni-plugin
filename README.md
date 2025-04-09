@@ -37,6 +37,17 @@ As you can see from the output, both master and worker nodes are currently in th
 
 3. Configuring the CNI plug-in
 
+Place the kube-cni plugin into /opt/cni/bin/
+```
+cp ./kube-cni.sh /opt/cni/bin/kube-cni
+chmod +x /opt/cni/bin/kube-cni
+```
+
+Ensure you have `nmap` and `jq` installed on the nodes. eg.
+```
+apt install jq nmap -y
+```
+
    Find out what subnets are allocated from the pod network range:
    ```
    $ kubectl describe node k8s-master | grep PodCIDR
@@ -119,3 +130,7 @@ $ kubectl describe pod | grep IP
 IP:                 10.0.0.3
 IP:                 10.0.1.3
 ```
+
+### Troubleshooting
+
+The plugin logs to `/var/log/kube-cni-plugin.log`
